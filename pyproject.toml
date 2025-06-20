@@ -1,0 +1,18 @@
+[project]
+name = "rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.13",
+    "uvicorn>=0.34.3",
+]
+[project.scripts]
+dev = "uvicorn:main:app --reload"
+
+[dependency-groups]
+dev = [
+    "prisma>=0.15.0",
+]
+
