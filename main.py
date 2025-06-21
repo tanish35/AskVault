@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-
-from routes import file_routes
 from lib.config import settings
 from prisma import Prisma
+from routes import file_routes, user_routes
 
 prisma = Prisma()
 
@@ -25,3 +24,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(file_routes.router, prefix="/api/file")
+app.include_router(user_routes.router, prefix="/api/user")
+
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the AskVault API"}

@@ -66,3 +66,17 @@ async def login(email: str, password: str, response: Response):
     )
 
     return {"message": "Login successful", "user_id": user.id}
+
+
+@router.get("/me")
+async def get_current_user(current_user=Depends(check_auth)):
+    if not current_user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated"
+        )
+    user = await prisma.user.find_unique(where={"id": current_user.id})
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+    return {"id": user.id, "email": user.email, "name": user.name}
