@@ -30,9 +30,6 @@ dependencies = [
     "unstructured-client>=0.25.9",
     "uvicorn>=0.34.3",
 ]
-[project.scripts]
-main = "main:main"
-
 
 [dependency-groups]
 dev = []

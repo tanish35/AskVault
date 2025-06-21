@@ -1,7 +1,7 @@
 from middleware.auth import check_auth
 from fastapi import APIRouter, Depends, HTTPException, status, Response
 from lib.config import settings
-from main import prisma
+from engine import db
 from jose import jwt
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
@@ -19,7 +19,7 @@ async def signup(email: str, password: str, name: str):
             detail="Email,password and Name are required",
         )
 
-    existing_user = await prisma.user.find_unique(where={"email": email})
+    existing_user = await db.user.find_unique(where={"email": email})
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Username already exists"
@@ -27,7 +27,7 @@ async def signup(email: str, password: str, name: str):
 
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     password = pwd_context.hash(password)
-    user = await prisma.user.create(
+    user = await db.user.create(
         data={"email": email, "password": password, "name": name}
     )
     return {"message": "User created successfully", "user_id": user.id}
@@ -41,7 +41,7 @@ async def login(email: str, password: str, response: Response):
             detail="Email and password are required",
         )
 
-    user = await prisma.user.find_unique(where={"email": email})
+    user = await db.user.find_unique(where={"email": email})
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
@@ -74,7 +74,7 @@ async def get_current_user(current_user=Depends(check_auth)):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated"
         )
-    user = await prisma.user.find_unique(where={"id": current_user.id})
+    user = await db.user.find_unique(where={"id": current_user.id})
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"

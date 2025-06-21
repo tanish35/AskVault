@@ -2,17 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from lib.config import settings
-from prisma import Prisma
-from routes import file_routes, user_routes
+from engine import db
 
-prisma = Prisma()
+from routes import file_routes, user_routes
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await prisma.connect()
+    await db.connect()
     yield
-    await prisma.disconnect()
+    await db.disconnect()
 
 
 app = FastAPI(lifespan=lifespan)
