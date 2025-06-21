@@ -16,9 +16,7 @@ router = APIRouter()
 
 
 @router.post("/upload")
-async def upload_document(
-    file: UploadFile = File(...), current_user=Depends(check_auth)
-):
+async def upload_document(file: UploadFile = File(...)):
     temp_file_path = f"./temp_{file.filename}"
     try:
         with open(temp_file_path, "wb") as buffer:
@@ -55,7 +53,7 @@ class Question(BaseModel):
 
 
 @router.post("/chat")
-async def chat_with_agent(question: Question, current_user=Depends(check_auth)):
+async def chat_with_agent(question: Question):
     qa_crew = create_qa_crew(question.query)
     result = qa_crew.kickoff()
     print(f"QA Crew Result: {result}")
