@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     es_url: str
     huggingface_api_key: str
     gemini_api_key: str
+    secret_key: str
 
 
 settings = Settings()  # type: ignore

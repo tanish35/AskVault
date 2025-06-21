@@ -19,8 +19,10 @@ dependencies = [
     "langchain-text-splitters>=0.3.8",
     "langchain-unstructured>=0.1.5",
     "langgraph>=0.4.8",
+    "prisma>=0.15.0",
     "pydantic>=2.11.7",
     "pydantic-settings>=2.9.1",
+    "python-jose>=3.5.0",
     "python-multipart>=0.0.20",
     "sentence-transformers>=4.1.0",
     "unstructured>=0.17.2",
@@ -32,7 +34,5 @@ main = "main:main"
 
 
 [dependency-groups]
-dev = [
-    "prisma>=0.15.0",
-]
+dev = []
 
