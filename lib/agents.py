@@ -5,16 +5,27 @@ from lib.vector_db import search_documents
 
 
 @tool("Document Search Tool")
-def search_tool(query: str) -> str:
-    """Searches the vector database for similar documents based on the query.
+def search_tool(query: str, user_id: str) -> str:
+    """
+    Searches the vector database for documents similar to the given query,
+    scoped to a specific user.
 
     Args:
-        query: The search query to find relevant documents
+        query (str): The search query string.
+        user_id (str, optional): The user identifier.
 
     Returns:
-        str: The search results from the vector database
+        str: Concatenated contents of the top matching documents.
     """
-    return search_documents(query)
+    if not query:
+        return "Missing query in search input."
+    if not user_id:
+        return "Missing user_id in search input."
+
+    try:
+        return search_documents(query, user_id)
+    except Exception as e:
+        return f"Error searching documents: {str(e)}"
 
 
 doc_expert_agent = Agent(
@@ -31,9 +42,15 @@ doc_expert_agent = Agent(
 )
 
 
-def create_qa_crew(query) -> Crew:
+def create_qa_crew(user_question: str, user_id: str) -> Crew:
     qa_task = Task(
-        description=f"Answer the user's question: '{query}'. Use your search tool to find relevant information.",
+        description=f"""Answer the user's question: '{user_question}'. 
+        
+        IMPORTANT: When using the Document Search Tool, you MUST use these exact parameters:
+        - query: the search query derived from the user's question
+        - user_id: {user_id}
+        
+        Use your search tool to find relevant information from the documents.""",
         expected_output="A helpful and accurate answer based on the retrieved document context.",
         agent=doc_expert_agent,
     )

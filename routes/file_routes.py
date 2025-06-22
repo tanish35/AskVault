@@ -16,7 +16,7 @@ router = APIRouter()
 
 
 @router.post("/upload")
-async def upload_document(file: UploadFile = File(...)):
+async def upload_document(file: UploadFile = File(...), user=Depends(check_auth)):
     temp_file_path = f"./temp_{file.filename}"
     try:
         with open(temp_file_path, "wb") as buffer:
@@ -36,7 +36,7 @@ async def upload_document(file: UploadFile = File(...)):
         )
         chunked_docs = text_splitter.split_documents([raw_doc])
 
-        add_documents(documents=chunked_docs)
+        add_documents(documents=chunked_docs, user_id=user.id)
 
         return {"filename": file.filename, "status": "processed and indexed"}
 
@@ -53,8 +53,12 @@ class Question(BaseModel):
 
 
 @router.post("/chat")
-async def chat_with_agent(question: Question):
-    qa_crew = create_qa_crew(question.query)
-    result = qa_crew.kickoff()
-    print(f"QA Crew Result: {result}")
-    return {"answer": result}
+async def chat_with_agent(question: Question, user=Depends(check_auth)):
+    try:
+        qa_crew = create_qa_crew(question.query, user.id)
+        result = qa_crew.kickoff()
+        print(f"QA Crew Result: {result}")
+        return {"answer": str(result)}
+    except Exception as e:
+        print(f"Error in chat_with_agent: {e}")
+        return {"error": "An error occurred while processing your question"}

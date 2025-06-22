@@ -24,11 +24,24 @@ def create_vector_db():
 vector_store = create_vector_db()
 
 
-def add_documents(documents: List[Document]):
+def add_documents(documents: List[Document], user_id: str):
+    for doc in documents:
+        if not doc.metadata:
+            doc.metadata = {}
+        doc.metadata["user_id"] = user_id
+
     vector_store.add_documents(documents)
 
 
-def search_documents(query: str, top_k: int = 3) -> str:
-    results = vector_store.similarity_search(query, k=top_k)
+def search_documents(query: str, user_id: str, top_k: int = 3) -> str:
+    if user_id is None or user_id == "":
+        raise ValueError("User ID cannot be None or empty")
+    es_filter = [{"term": {"metadata.user_id": user_id}}]
+
+    results = vector_store.similarity_search(
+        query,
+        k=top_k,
+        filter=es_filter,
+    )
     context = "\n\n".join([doc.page_content for doc in results])
     return context
