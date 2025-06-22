@@ -82,3 +82,8 @@ async def get_current_user(current_user=Depends(check_auth)):
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
     return {"id": user.id, "email": user.email, "name": user.name}
+
+@router.post("/logout")
+async def logout(response: Response):
+    response.delete_cookie("Authorization")
+    return {"message": "Logout successful"}
