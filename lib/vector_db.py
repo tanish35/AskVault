@@ -33,7 +33,7 @@ def add_documents(documents: List[Document], user_id: str):
     vector_store.add_documents(documents)
 
 
-def search_documents(query: str, user_id: str, top_k: int = 3) -> str:
+def search_documents(query: str, user_id: str, top_k: int = 5) -> str:
     if user_id is None or user_id == "":
         raise ValueError("User ID cannot be None or empty")
     es_filter = [{"term": {"metadata.user_id": user_id}}]
