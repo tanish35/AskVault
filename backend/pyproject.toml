@@ -26,11 +26,14 @@ dependencies = [
     "python-jose>=3.5.0",
     "python-multipart>=0.0.20",
     "sentence-transformers>=4.1.0",
-    "unstructured>=0.17.2",
+    "unstructured[pdf]>=0.17.2",
     "unstructured-client>=0.25.9",
     "uvicorn>=0.34.3",
 ]
 
 [dependency-groups]
 dev = []
+
+[tool.setuptools]
+packages = ["lib", "models", "routes", "middleware"]
 
