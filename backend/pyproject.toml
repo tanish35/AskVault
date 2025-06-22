@@ -29,6 +29,9 @@ dependencies = [
     "unstructured[pdf]>=0.17.2",
     "unstructured-client>=0.25.9",
     "uvicorn>=0.34.3",
+    "qdrant-client>=1.14.3",
+    "langchain-community>=0.3.25",
+    "langchain-qdrant>=0.2.0",
 ]
 
 [dependency-groups]
