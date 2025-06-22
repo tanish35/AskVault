@@ -1,4 +1,3 @@
-# Updated imports - no more deprecation warnings
 from langchain_qdrant import QdrantVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
 from typing import List
