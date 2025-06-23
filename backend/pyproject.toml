@@ -6,14 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "crewai>=0.130.0",
-    "crewai-tools>=0.47.1",
-    "elasticsearch>=8.18.1",
-    "elasticsearch7>=7.9.1",
     "fastapi[standard]>=0.115.13",
     "google-genai>=1.21.1",
     "huggingface-hub>=0.33.0",
     "langchain>=0.3.25",
-    "langchain-elasticsearch>=0.3.2",
     "langchain-google-genai>=2.1.5",
     "langchain-huggingface>=0.3.0",
     "langchain-text-splitters>=0.3.8",
@@ -32,6 +28,7 @@ dependencies = [
     "qdrant-client>=1.14.3",
     "langchain-community>=0.3.25",
     "langchain-qdrant>=0.2.0",
+    "pipreqs>=0.5.0",
 ]
 
 [dependency-groups]
