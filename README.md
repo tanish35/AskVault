@@ -6,14 +6,14 @@ An AI-powered RAG (Retrieval-Augmented Generation) platform where users can uplo
 
 ## 🚀 Features
 
-- 🔐 JWT authentication via secure HttpOnly cookies
-- 📁 Upload and parse PDFs, DOCX, TXT, and more (via `unstructured`)
-- 🧠 RAG with CrewAI + Gemini/OpenAI
-- 🧲 Semantic search with LangChain + Qdrant
-- 👥 Per-user document isolation
-- 🌐 Next.js frontend with cookie-based auth
-- 🛡️ Role-based auth middleware
-- 📦 Vectorized storage per document using HuggingFace embeddings
+- 🧠 Retrieval-Augmented Generation (RAG) pipeline with CrewAI + Gemini/OpenAI
+- 📎 Supports multi-format document parsing (PDF, DOCX, TXT, PPTX, etc.) via `unstructured`
+- 🧲 Fast and scalable semantic search using LangChain + Qdrant
+- 🧩 Modular CrewAI agents for document understanding and reasoning
+- 📦 Document embeddings generated using HuggingFace (`MiniLM-L6-v2`) or any other model
+- 👥 Per-user document isolation for private, personalized search
+- 🔄 End-to-end contextual QA based entirely on uploaded content
+- 🌐 Ready-to-integrate with any frontend (e.g., Next.js)
 
 ---
 
