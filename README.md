@@ -1,12 +1,14 @@
+
 # 📚 AskVault
 
-An AI-powered RAG (Retrieval-Augmented Generation) platform where users can upload any type of document and ask questions based on its content. Powered by FastAPI, Qdrant, LangChain, HuggingFace embeddings, and CrewAI for intelligent agent orchestration.
+An AI-powered RAG (Retrieval-Augmented Generation) platform where users can upload any type of document and ask questions based on its content. Powered by FastAPI, Qdrant, LangChain, HuggingFace embeddings, Redis memory, and CrewAI for intelligent agent orchestration.
 
 ---
 
 ## 🚀 Features
 
 - 🧠 Retrieval-Augmented Generation (RAG) pipeline with CrewAI + Gemini/OpenAI
+- 🧠 Context-aware conversations with persistent memory powered by Redis
 - 📎 Supports multi-format document parsing (PDF, DOCX, TXT, PPTX, etc.) via `unstructured`
 - 🧲 Fast and scalable semantic search using LangChain + Qdrant
 - 🧩 Modular CrewAI agents for document understanding and reasoning
@@ -26,6 +28,7 @@ An AI-powered RAG (Retrieval-Augmented Generation) platform where users can uplo
 | **LLM Agents**    | [CrewAI](https://github.com/joaomdmoura/crewAI)                   |
 | **Vector DB**     | Qdrant (local or cloud)                                           |
 | **Embeddings**    | HuggingFace `all-MiniLM-L6-v2`                                    |
+| **Memory**        | Redis + LangChain `ConversationBufferMemory`                     |
 | **Parsing**       | [`unstructured`](https://github.com/Unstructured-IO/unstructured) |
 | **Auth**          | `python-jose`, `bcrypt`                                           |
 | **Vector Search** | LangChain + QdrantVectorStore                                     |
@@ -36,9 +39,8 @@ An AI-powered RAG (Retrieval-Augmented Generation) platform where users can uplo
 
 Interactive API docs available at:
 
-```
-http://localhost:8000/docs
-```
+[http://localhost:8000/docs](http://localhost:8000/docs)
+
 
 ---
 
@@ -49,7 +51,7 @@ http://localhost:8000/docs
 ```bash
 git clone https://github.com/tanish35/AskVault.git
 cd AskVault
-```
+````
 
 ---
 
@@ -71,6 +73,7 @@ Create a `.env` file:
 ```env
 DATABASE_URL=postgresql://username:password@localhost:5432/AskVault
 QDRANT_URL=http://localhost:6333
+REDIS_URL=redis://localhost:6379
 SECRET_KEY=your_jwt_secret
 GEMINI_API_KEY=your_gemini_api_key
 ```
@@ -86,13 +89,14 @@ npx prisma migrate dev --name init
 
 ---
 
-### 5. Run Qdrant locally (or use Qdrant Cloud)
+### 5. Run Qdrant and Redis locally (or use cloud versions)
 
 ```bash
 docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
+docker run -p 6379:6379 redis
 ```
 
-Make sure your `QDRANT_URL` in `.env` matches.
+Ensure your `.env` variables match these.
 
 ---
 
@@ -119,13 +123,13 @@ npm run dev
 
 Thanks to `unstructured`, these formats are supported:
 
-- `.pdf`
-- `.docx`
-- `.txt`
-- `.pptx`
-- `.html`
-- `.eml`, `.msg`
-- `.md`, `.rst`
+* `.pdf`
+* `.docx`
+* `.txt`
+* `.pptx`
+* `.html`
+* `.eml`, `.msg`
+* `.md`, `.rst`
 
 ---
 
@@ -133,9 +137,10 @@ Thanks to `unstructured`, these formats are supported:
 
 The app uses `CrewAI` to define a **document expert agent** that:
 
-- Uses `LangChain` tools to search your documents
-- Responds only using context retrieved from Qdrant
-- Handles user-specific queries using JWT-based filtering
+* Uses `LangChain` tools to search your documents
+* Responds only using context retrieved from Qdrant
+* Maintains **conversational state using Redis-based memory** to understand context across turns
+* Handles user-specific queries using JWT-based filtering
 
 ---
 
@@ -155,4 +160,3 @@ We welcome contributions! Please follow these steps:
 
 MIT © 2025 – Tanish Majumdar
 
----
