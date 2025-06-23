@@ -72,7 +72,7 @@ export default function DrivePage() {
     try {
       const formData = new FormData()
       Array.from(fileList).forEach((file) => {
-        formData.append("files", file)
+        formData.append("file", file)
       })
 
       const response = await axios.post("/api/file/upload", formData, {

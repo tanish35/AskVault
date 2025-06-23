@@ -55,10 +55,12 @@ class Question(BaseModel):
 @router.post("/chat")
 async def chat_with_agent(question: Question, user=Depends(check_auth)):
     try:
-        qa_crew = create_qa_crew(question.query, user.id)
+        qa_crew, memory = create_qa_crew(question.query, user.id)
         result = qa_crew.kickoff()
         print(f"QA Crew Result: {result}")
-        return {"answer": str(result)}
+        memory.save_context({"input": question.query}, {"output": str(result)})
+        markdown_response = result.__str__().strip()
+        return {"answer": markdown_response}
     except Exception as e:
         print(f"Error in chat_with_agent: {e}")
         return {"error": "An error occurred while processing your question"}

@@ -3,8 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from lib.config import settings
 from engine import db
+import os
 
 from routes import file_routes, user_routes
+
+os.environ["GOOGLE_API_KEY"] = settings.gemini_api_key
 
 
 @asynccontextmanager
@@ -22,6 +25,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 app.include_router(file_routes.router, prefix="/api/file")
 app.include_router(user_routes.router, prefix="/api/user")
 

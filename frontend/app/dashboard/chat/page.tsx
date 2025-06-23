@@ -131,7 +131,7 @@ export default function ChatPage() {
                       message.type === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="whitespace-pre-wrap break-words">{message.content}</p>
                     <p className={`text-xs mt-1 ${message.type === "user" ? "text-blue-100" : "text-gray-500"}`}>
                       {message.timestamp.toLocaleTimeString()}
                     </p>

@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     qdrant_url: str
     qdrant_api_key: str
     es_url: str
+    redis_url: str
 
 
 settings = Settings()  # type: ignore
