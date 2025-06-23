@@ -1,9 +1,9 @@
 
 # 📚 AskVault
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/tanish35/AskVault)
 
 An AI-powered RAG (Retrieval-Augmented Generation) platform where users can upload any type of document and ask questions based on its content. Powered by FastAPI, Qdrant, LangChain, HuggingFace embeddings, Redis memory, and CrewAI for intelligent agent orchestration.
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/tanish35/AskVault)
 
 ---
 
