@@ -10,12 +10,17 @@ ARG HF_TOKEN
 # Set HF_TOKEN as an environment variable for the huggingface_hub library
 ENV HF_TOKEN=${HF_TOKEN}
 
-# Copy and install dependencies
+# Copy and install dependencies from requirements.txt
+# This will install FastAPI, Uvicorn, and the Prisma Python client
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application source code
+# Copy the rest of the application source code, including the prisma directory
 COPY . .
+
+# Generate the Prisma Client for Python.
+# This command uses the pip-installed prisma CLI and requires schema.prisma.
+RUN prisma generate
 
 # Expose the port the app runs on
 EXPOSE 8000
