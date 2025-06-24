@@ -1,11 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from contextlib import asynccontextmanager
 from lib.config import settings
+
 from engine import db
 import os
 
-from routes import file_routes, user_routes
+from routes import file_routes
+from routes import user_routes
 
 os.environ["GOOGLE_API_KEY"] = settings.gemini_api_key
 

@@ -9,6 +9,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.docstore.document import Document
 from unstructured.partition.auto import partition
 
+
 from lib.vector_db import add_documents
 from lib.agents import create_qa_crew
 
@@ -21,7 +22,6 @@ async def upload_document(file: UploadFile = File(...), user=Depends(check_auth)
     try:
         with open(temp_file_path, "wb") as buffer:
             buffer.write(await file.read())
-
         elements = partition(filename=temp_file_path)
         texts = []
         for el in elements:

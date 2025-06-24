@@ -6,6 +6,15 @@ from lib.config import settings
 from qdrant_client import QdrantClient, models
 from qdrant_client.http.models import Distance, VectorParams
 
+_vector_store = None
+
+
+def get_vector_store():
+    global _vector_store
+    if _vector_store is None:
+        _vector_store = create_vector_db()
+    return _vector_store
+
 
 def create_vector_db():
     collection_name = "document_index"
@@ -47,10 +56,11 @@ def create_vector_db():
     )
 
 
-vector_store = create_vector_db()
+# vector_store = create_vector_db()
 
 
 def add_documents(documents: List[Document], user_id: str):
+    vector_store = get_vector_store()
     for doc in documents:
         if not doc.metadata:
             doc.metadata = {}
@@ -60,6 +70,7 @@ def add_documents(documents: List[Document], user_id: str):
 
 
 def search_documents(query: str, user_id: str, top_k: int = 5) -> str:
+    vector_store = get_vector_store()
     if not user_id:
         raise ValueError("User ID cannot be None or empty")
 
