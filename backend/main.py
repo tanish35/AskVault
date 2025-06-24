@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from contextlib import asynccontextmanager
@@ -32,6 +32,11 @@ app.add_middleware(
 
 app.include_router(file_routes.router, prefix="/api/file")
 app.include_router(user_routes.router, prefix="/api/user")
+
+
+@app.head("/")
+def head_root():
+    return Response(status_code=200)
 
 
 @app.get("/")
