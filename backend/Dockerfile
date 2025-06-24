@@ -4,6 +4,10 @@ FROM python:3.12-slim
 # Set the working directory inside the container
 WORKDIR /app
 
+# --- The Fix: Add the working directory to PYTHONPATH ---
+# This tells Python to look for modules in the /app directory.
+ENV PYTHONPATH=/app
+
 # Accept the Hugging Face token as a secure build-time argument
 ARG HF_TOKEN
 
@@ -11,7 +15,6 @@ ARG HF_TOKEN
 ENV HF_TOKEN=${HF_TOKEN}
 
 # Copy and install dependencies from requirements.txt
-# This will install FastAPI, Uvicorn, and the Prisma Python client
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -19,7 +22,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Generate the Prisma Client for Python.
-# This command uses the pip-installed prisma CLI and requires schema.prisma.
 RUN prisma generate
 
 # Expose the port the app runs on
