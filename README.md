@@ -4,6 +4,8 @@
 
 An AI-powered RAG (Retrieval-Augmented Generation) platform where users can upload any type of document and ask questions based on its content. Powered by FastAPI, Qdrant, LangChain, HuggingFace embeddings, Redis memory, and CrewAI for intelligent agent orchestration.
 
+https://github.com/user-attachments/assets/6573e8ba-f794-4927-a428-7578b1e1d608
+
 
 ---
 
