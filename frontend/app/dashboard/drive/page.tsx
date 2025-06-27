@@ -139,7 +139,7 @@ export default function DrivePage() {
               <Input
                 type="file"
                 multiple
-                accept=".pdf,.doc,.docx,.txt"
+                accept=".pdf,.doc,.docx,.txt,.png"
                 onChange={handleFileInput}
                 className="hidden"
                 id="file-upload"

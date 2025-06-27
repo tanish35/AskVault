@@ -3886,6 +3886,7 @@ dependencies = [
     { name = "qdrant-client" },
     { name = "redis" },
     { name = "sentence-transformers" },
+    { name = "tesseract" },
     { name = "unstructured", extra = ["pdf"] },
     { name = "unstructured-client" },
     { name = "uvicorn" },
@@ -3914,6 +3915,7 @@ requires-dist = [
     { name = "qdrant-client", specifier = ">=1.14.3" },
     { name = "redis", specifier = ">=6.2.0" },
     { name = "sentence-transformers", specifier = ">=4.1.0" },
+    { name = "tesseract", specifier = ">=0.1.3" },
     { name = "unstructured", extras = ["pdf"], specifier = ">=0.17.2" },
     { name = "unstructured-client", specifier = ">=0.25.9" },
     { name = "uvicorn", specifier = ">=0.34.3" },
@@ -4376,6 +4378,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/a3/4d/6a19536c50b849338
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d2/3f/8ba87d9e287b9d385a02a7114ddcef61b26f86411e121c9003eb509a1773/tenacity-8.5.0-py3-none-any.whl", hash = "sha256:b594c2a5945830c267ce6b79a166228323ed52718f30302c1359836112346687", size = 28165, upload-time = "2024-07-05T07:25:29.591Z" },
 ]
+
+[[package]]
+name = "tesseract"
+version = "0.1.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8d/b7/c4fae9af5842f69d9c45bf1195a94aec090628535c102894552a7a7dbe6c/tesseract-0.1.3.tar.gz", hash = "sha256:4ab908f06ff15b60959ed0f200bddf8309ed02e6435ddc29445961cf8e3f5365", size = 45555135, upload-time = "2015-07-13T21:21:24.512Z" }
 
 [[package]]
 name = "threadpoolctl"
